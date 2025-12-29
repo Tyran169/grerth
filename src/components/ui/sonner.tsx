@@ -131,8 +131,8 @@ const RESTYLE_SONNER_TOAST = `
 
   .toaster[data-sonner-theme='dark'],
   .toaster[data-sonner-theme='light'] .toast[data-invert='true'] {
-    --normal-bg: hsl(0, 0%, 9%) !important;
-    --normal-border: hsla(0, 0%, 100%, 0.1) !important;
+    --normal-bg: hsl(0, 0%, 8%) !important;
+    --normal-border: hsl(0, 0%, 17%) !important;
     --normal-text: hsl(0, 0%, 98%) !important;
 
     --success-bg: hsl(150, 100%, 6%) !important;
