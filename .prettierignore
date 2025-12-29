@@ -1,0 +1,25 @@
+# Ignore artifacts:
+.next/
+out/
+build/
+
+# Ignore public folder (static assets)
+public/
+
+# Ignore node_modules:
+node_modules/
+
+# Ignore temporary files:
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# Ignore package-lock files (if you're using npm and don't want them formatted):
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore generated files or specific patterns if needed
+# For example, if you have a specific generated API client:
+# src/generated/
