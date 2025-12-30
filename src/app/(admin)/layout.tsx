@@ -1,10 +1,11 @@
 import { AppSidebar } from '@/components/main-layout/app-sidebar';
 import { SiteFooter } from '@/components/main-layout/site-footer';
 import { SiteHeader } from '@/components/main-layout/site-header';
+import { SiteTitleProvider } from '@/components/main-layout/site-title';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import React from 'react';
 
-export default async function AdminLayout({
+export default function AdminLayout({
   children
 }: {
   children: React.ReactNode;
@@ -20,11 +21,13 @@ export default async function AdminLayout({
           } as React.CSSProperties
         }
       >
-        <AppSidebar variant="inset" />
-        <SidebarInset className="ml-0!">
-          <SiteHeader />
-          {children}
-        </SidebarInset>
+        <SiteTitleProvider>
+          <AppSidebar variant="inset" />
+          <SidebarInset className="ml-0!">
+            <SiteHeader />
+            {children}
+          </SidebarInset>
+        </SiteTitleProvider>
       </SidebarProvider>
       <SiteFooter />
     </>

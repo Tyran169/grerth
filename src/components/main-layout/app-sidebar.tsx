@@ -32,6 +32,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem
 } from '@/components/ui/sidebar';
+import { Route } from 'next';
 
 const data = {
   user: {
@@ -47,7 +48,7 @@ const data = {
     },
     {
       title: 'Lifecycle',
-      url: 'toast',
+      url: '/toast',
       icon: IconListDetails
     },
     {
@@ -65,7 +66,11 @@ const data = {
       url: '#',
       icon: IconUsers
     }
-  ],
+  ] as {
+    title: string;
+    url: Route | '#';
+    icon: typeof IconDashboard;
+  }[],
   navClouds: [
     {
       title: 'Capture',
