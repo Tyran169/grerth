@@ -25,13 +25,14 @@ import {
   useSidebar
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
+import { Route } from 'next';
 
 export function NavDocuments({
   items
 }: {
   items: {
     name: string;
-    url: string;
+    url: Route;
     icon: Icon;
   }[];
 }) {

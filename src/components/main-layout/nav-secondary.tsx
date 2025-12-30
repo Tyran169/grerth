@@ -11,6 +11,7 @@ import {
   SidebarMenuItem
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
+import { Route } from 'next';
 
 export function NavSecondary({
   items,
@@ -18,7 +19,7 @@ export function NavSecondary({
 }: {
   items: {
     title: string;
-    url: string;
+    url: Route;
     icon: Icon;
   }[];
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {

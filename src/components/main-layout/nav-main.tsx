@@ -11,13 +11,14 @@ import {
   SidebarMenuItem
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
+import { Route } from 'next';
 
 export function NavMain({
   items
 }: {
   items: {
     title: string;
-    url: string;
+    url: Route;
     icon?: Icon;
   }[];
 }) {

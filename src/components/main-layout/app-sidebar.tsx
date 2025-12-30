@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import {
   IconCamera,
   IconChartBar,
@@ -30,11 +29,47 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem
+  SidebarMenuItem,
+  useSidebar
 } from '@/components/ui/sidebar';
 import { Route } from 'next';
+import { usePathname } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 
-const data = {
+type AppSidebarData = {
+  user: {
+    name: string;
+    email: string;
+    avatar: string;
+  };
+  navMain: {
+    title: string;
+    url: Route;
+    icon: typeof IconDashboard;
+  }[];
+  navClouds: {
+    title: string;
+    icon: typeof IconCamera;
+    isActive?: boolean;
+    url: Route;
+    items: {
+      title: string;
+      url: Route;
+    }[];
+  }[];
+  navSecondary: {
+    title: string;
+    url: Route;
+    icon: typeof IconSettings;
+  }[];
+  documents: {
+    name: string;
+    url: Route;
+    icon: typeof IconDatabase;
+  }[];
+};
+
+const data: AppSidebarData = {
   user: {
     name: 'shadcn',
     email: 'm@example.com',
@@ -66,11 +101,7 @@ const data = {
       url: '#',
       icon: IconUsers
     }
-  ] as {
-    title: string;
-    url: Route | '#';
-    icon: typeof IconDashboard;
-  }[],
+  ],
   navClouds: [
     {
       title: 'Capture',
@@ -177,10 +208,36 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
         <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <RouteListener />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
   );
+}
+
+export function RouteListener() {
+  const pathname = usePathname();
+  const { isMobile, setOpenMobile } = useSidebar();
+
+  const prevPathRef = useRef<string | null>(null);
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    // ignore first render
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      prevPathRef.current = pathname;
+      return;
+    }
+
+    // only close mobile nav when path changes
+    if (prevPathRef.current !== pathname && isMobile) {
+      setOpenMobile(false);
+      prevPathRef.current = pathname;
+    }
+  }, [pathname, setOpenMobile, isMobile]);
+
+  return null;
 }
