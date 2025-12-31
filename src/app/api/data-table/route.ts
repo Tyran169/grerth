@@ -1,16 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
+import data from './data.json';
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
-    // Example data - replace with your actual data source
-    const data = [
-      { id: 1, name: 'Item 1', value: 100 },
-      { id: 2, name: 'Item 2', value: 200 },
-      { id: 3, name: 'Item 3', value: 300 }
-    ];
-
     return NextResponse.json(data);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to fetch data' },
       { status: 500 }
@@ -27,7 +21,7 @@ export async function POST(request: NextRequest) {
       { message: 'Data created successfully', data: body },
       { status: 201 }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to create data' },
       { status: 400 }
