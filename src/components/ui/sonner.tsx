@@ -21,6 +21,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       <EnsureDefaultIcon />
       <Sonner
         theme={theme as ToasterProps['theme']}
+        containerAriaLabel="Sonner Notifications"
         className="toaster group"
         icons={{
           success: <CircleCheckIcon className="size-4" />,
@@ -66,10 +67,14 @@ function EnsureDefaultIcon() {
   const { toasts } = useSonner();
 
   useEffect(() => {
-    // Sonner toasts are mutable; this effect is idempotent
-    // and ensures a default icon for toasts without icon/type/jsx
+    // Sonner toasts are mutable; this effect is idempotent.
+    // and ensures a default icon for toasts without icon/type/jsx (undefined).
     toasts.forEach((toast) => {
-      if (!toast.icon && !toast.type && !toast.jsx) {
+      if (
+        toast.icon === undefined &&
+        toast.type === undefined &&
+        toast.jsx === undefined
+      ) {
         toast.icon = <CircleEllipsisIcon className="size-4" />;
       }
     });
@@ -91,10 +96,18 @@ function RestyleToast() {
     style.textContent = RESTYLE_SONNER_TOAST;
     document.head.appendChild(style);
 
-    // return () => {
-    //   // optional: cleanup on unmount
-    //   document.getElementById(id)?.remove();
-    // };
+    // optional: cleanup on unmount
+    return () => {
+      // Global Sonner styles are injected once and shared
+      // across all Sonner containers in the app.
+      // Only remove styles if no Sonner containers remain.
+      const containers = document.querySelectorAll(
+        '[aria-label*="Sonner Notifications"]'
+      );
+      if (containers.length > 0) return;
+
+      document.getElementById(id)?.remove();
+    };
   }, []);
 
   return null;
