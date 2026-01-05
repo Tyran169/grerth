@@ -80,16 +80,16 @@ function EnsureDefaultIcon() {
 
   useEffect(() => {
     // Sonner toasts are mutable; this effect is idempotent.
-    // Ensures a default icon for toasts without jsx/type/icon (undefined)
+    // Ensures a default icon for toasts without type/icon/jsx (undefined)
     // and if type of each toast outside of types that Sonner provides icons for (info, success, warning, error, loading).
     toasts.forEach((toast) => {
-      if (toast.jsx !== undefined) return;
       if (
         toast.type !== undefined &&
         SONNER_ICON_SUPPORTED_TYPES.has(toast.type)
       )
         return;
       if (toast.icon !== undefined) return;
+      if (toast.jsx !== undefined) return;
 
       toast.icon = <CircleEllipsisIcon className="size-4" />;
     });
