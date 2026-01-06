@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/providers/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://grerth.netlify.app'),
   title: 'Grerth',
   description: 'Just for fun!',
   appleWebApp: {
