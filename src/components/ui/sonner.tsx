@@ -50,7 +50,11 @@ const Toaster = ({ ...props }: ToasterProps) => {
             loading: 'loading',
             closeButton: 'close-btn',
             actionButton: 'action-btn',
-            cancelButton: 'cancel-btn'
+            cancelButton: 'cancel-btn',
+            content: 'content',
+            title: 'title',
+            description: 'description',
+            icon: 'icon'
           }
         }}
         richColors
@@ -186,28 +190,56 @@ const RESTYLE_SONNER_TOAST = `
     --toast-border: var(--normal-border);
   }
 
-  .toaster .toast[data-rich-colors=true].success {
+  .toaster .toast.success {
     --toast-text: var(--success-text);
     --toast-bg: var(--success-bg);
     --toast-border: var(--success-border);
   }
 
-  .toaster .toast[data-rich-colors=true].info {
+  .toaster .toast.info {
     --toast-text: var(--info-text);
     --toast-bg: var(--info-bg);
     --toast-border: var(--info-border);
   }
 
-  .toaster .toast[data-rich-colors=true].warning {
+  .toaster .toast.warning {
     --toast-text: var(--warning-text);
     --toast-bg: var(--warning-bg);
     --toast-border: var(--warning-border);
   }
 
-  .toaster .toast[data-rich-colors=true].error {
+  .toaster .toast.error {
     --toast-text: var(--error-text);
     --toast-bg: var(--error-bg);
     --toast-border: var(--error-border);
+  }
+
+  /*----------------------*/
+  /* Restyle Sonner Toast */
+  /*----------------------*/
+
+  .toaster .toast {
+    border: 1px solid var(--toast-border) !important;
+  }
+
+  /*---------------------------*/
+  /* Restyle Sonner Toast Icon */
+  /*---------------------------*/
+
+  .toaster .toast .icon {
+    color: var(--toast-text) !important;
+  }
+
+  /*------------------------------*/
+  /* Restyle Sonner Toast Content */
+  /*------------------------------*/
+
+  .toaster .toast .title {
+    color: inherit !important;
+  }
+
+  .toaster .toast .description {
+    color: inherit !important;
   }
 
   /*------------------------------------*/
