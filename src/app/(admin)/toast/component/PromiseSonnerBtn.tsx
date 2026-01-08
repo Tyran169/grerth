@@ -21,7 +21,8 @@ export default function PromiseSonnerBtn() {
           {
             loading: 'Loading...',
             success: (data) => `${data.name} has been created`,
-            error: 'There was an error creating the event'
+            error: 'There was an error creating the event',
+            richColors: true
           }
         );
       }}

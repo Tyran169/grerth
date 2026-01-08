@@ -6,7 +6,13 @@ import { useMounted } from '@/hooks/use-mounted';
 import { useTheme } from 'next-themes';
 import { toast } from 'sonner';
 
-export default function SonnerVariants() {
+export default function SonnerVariants({
+  richColors = false,
+  invertColors = false
+}: {
+  richColors?: boolean;
+  invertColors?: boolean;
+}) {
   const mounted = useMounted();
   const { resolvedTheme } = useTheme();
 
@@ -29,14 +35,27 @@ export default function SonnerVariants() {
         key="default"
         variant="outline"
         className="toast w-22"
-        data-rich-colors
-        style={{
-          background: 'var(--toast-bg)',
-          color: 'var(--toast-text)',
-          borderColor: 'var(--toast-border)'
-        }}
+        data-rich-colors={richColors}
+        data-invert={invertColors}
+        style={
+          richColors
+            ? {
+                background: 'var(--toast-bg)',
+                color: 'var(--toast-text)',
+                borderColor: 'var(--toast-border)'
+              }
+            : {
+                background: 'var(--normal-bg)',
+                color: 'var(--normal-text)',
+                borderColor: 'var(--toast-border)'
+              }
+        }
         onClick={() =>
-          toast(toastContent.default.title, toastContent.default.option)
+          toast(toastContent.default.title, {
+            ...toastContent.default.option,
+            richColors,
+            invert: invertColors
+          })
         }
       >
         Default
@@ -46,14 +65,27 @@ export default function SonnerVariants() {
           key={type}
           variant="outline"
           className={`toast ${type} w-22`}
-          data-rich-colors
-          style={{
-            background: 'var(--toast-bg)',
-            color: 'var(--toast-text)',
-            borderColor: 'var(--toast-border)'
-          }}
+          data-rich-colors={richColors}
+          data-invert={invertColors}
+          style={
+            richColors
+              ? {
+                  background: 'var(--toast-bg)',
+                  color: 'var(--toast-text)',
+                  borderColor: 'var(--toast-border)'
+                }
+              : {
+                  background: 'var(--normal-bg)',
+                  color: 'var(--normal-text)',
+                  borderColor: 'var(--toast-border)'
+                }
+          }
           onClick={() =>
-            toast[type](toastContent[type].title, toastContent[type].option)
+            toast[type](toastContent[type].title, {
+              ...toastContent[type].option,
+              richColors,
+              invert: invertColors
+            })
           }
         >
           {type.charAt(0).toUpperCase() + type.slice(1)}
