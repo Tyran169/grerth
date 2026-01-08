@@ -32,15 +32,13 @@ const Toaster = ({ ...props }: ToasterProps) => {
         }}
         style={
           {
+            // '--normal-bg': 'var(--popover)',
+            // '--normal-text': 'var(--popover-foreground)',
+            // '--normal-border': 'var(--border)',
             '--border-radius': 'var(--radius)'
           } as React.CSSProperties
         }
         toastOptions={{
-          // style: {
-          //   '--normal-bg': 'var(--popover)',
-          //   '--normal-text': 'var(--popover-foreground)',
-          //   '--normal-border': 'var(--border)'
-          // } as React.CSSProperties,
           className: 'toast group',
           classNames: {
             success: 'success',
@@ -57,8 +55,6 @@ const Toaster = ({ ...props }: ToasterProps) => {
             icon: 'icon'
           }
         }}
-        richColors
-        closeButton
         visibleToasts={6}
         duration={5000}
         {...props}
