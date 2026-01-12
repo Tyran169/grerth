@@ -56,7 +56,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     siteName: 'Grerth',
-    url: '/'
+    url: '/',
+    type: 'website'
   },
   manifest: '/site.webmanifest'
 };
