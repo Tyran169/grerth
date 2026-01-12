@@ -15,11 +15,11 @@ export const contentType = 'image/png';
 
 export default async function OpenGraphImage() {
   const interBold = await readFile(
-    join(process.cwd(), 'assets/fonts/Inter_24pt-Bold.ttf')
+    join(process.cwd(), 'public/fonts/Inter_24pt-Bold.ttf')
   );
 
   const interRegular = await readFile(
-    join(process.cwd(), 'assets/fonts/Inter_24pt-Regular.ttf')
+    join(process.cwd(), 'public/fonts/Inter_24pt-Regular.ttf')
   );
 
   return new ImageResponse(
@@ -113,7 +113,7 @@ export default async function OpenGraphImage() {
             color: '#6F6F6F'
           }}
         >
-          grerth.netlify.app
+          {process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}
         </div>
       </div>
     ),
