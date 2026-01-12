@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
+import { fontVariables } from '@/lib/fonts';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://grerth.netlify.app'),
@@ -19,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
+    <html lang="en" suppressHydrationWarning className={fontVariables}>
+      <body className="antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
