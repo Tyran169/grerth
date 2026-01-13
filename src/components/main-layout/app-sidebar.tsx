@@ -17,6 +17,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { data } from './sidebar-content';
+import Logo from '@/assets/images/logo.png';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -25,12 +26,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <div className="flex items-center gap-2">
-              <Image
-                src="/images/logo.png"
-                alt="Main Logo"
-                width={32}
-                height={32}
-              />
+              <Image src={Logo} alt="Main Logo" width={32} height={32} />
               <span className="text-base font-semibold">Grerth</span>
             </div>
           </SidebarMenuItem>
