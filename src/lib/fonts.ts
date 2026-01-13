@@ -3,12 +3,12 @@ import localFont from 'next/font/local';
 export const GeistSans = localFont({
   src: [
     {
-      path: '../../public/fonts/Geist.woff2',
+      path: '../assets/fonts/Geist.woff2',
       weight: '100 900',
       style: 'normal'
     },
     {
-      path: '../../public/fonts/Geist-Italic.woff2',
+      path: '../assets/fonts/Geist-Italic.woff2',
       weight: '100 900',
       style: 'italic'
     }
@@ -33,12 +33,12 @@ export const GeistSans = localFont({
 export const GeistMono = localFont({
   src: [
     {
-      path: '../../public/fonts/GeistMono.woff2',
+      path: '../assets/fonts/GeistMono.woff2',
       weight: '100 900',
       style: 'normal'
     },
     {
-      path: '../../public/fonts/GeistMono-Italic.woff2',
+      path: '../assets/fonts/GeistMono-Italic.woff2',
       weight: '100 900',
       style: 'italic'
     }
