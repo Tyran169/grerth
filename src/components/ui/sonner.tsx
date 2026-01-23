@@ -21,7 +21,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       <EnsureDefaultIcon />
       <Sonner
         theme={theme as ToasterProps['theme']}
-        containerAriaLabel="Toast Notifications"
+        containerAriaLabel={ARIA_LABEL}
         className="toaster group"
         icons={{
           success: <CircleCheckIcon className="size-4" />,
@@ -100,15 +100,13 @@ function EnsureDefaultIcon() {
 
 function RestyleToast() {
   useEffect(() => {
-    const id = 'restyled-sonner-toast';
-
     //avoid duplicate injection (StrictMode / Fast Refresh)
-    if (document.getElementById(id)) return;
+    if (document.getElementById(RESTYLE_ELEMENT_ID)) return;
 
     const style = document.createElement('style');
-    style.id = id;
+    style.id = RESTYLE_ELEMENT_ID;
     style.type = 'text/css';
-    style.textContent = RESTYLE_SONNER_TOAST;
+    style.textContent = RESTYLE_CSS_RULES;
     document.head.appendChild(style);
 
     // optional: cleanup on unmount
@@ -117,18 +115,22 @@ function RestyleToast() {
       // across all Sonner containers in the app.
       // Only remove styles if no Sonner containers remain.
       const containers = document.querySelectorAll(
-        '[aria-label*="Toast Notifications"]'
+        `[aria-label*="${ARIA_LABEL}"]`
       );
       if (containers.length > 0) return;
 
-      document.getElementById(id)?.remove();
+      document.getElementById(RESTYLE_ELEMENT_ID)?.remove();
     };
   }, []);
 
   return null;
 }
 
-const RESTYLE_SONNER_TOAST = `
+const ARIA_LABEL = 'Toast Notifications';
+
+const RESTYLE_ELEMENT_ID = 'restyled-sonner-toast';
+
+const RESTYLE_CSS_RULES = `
   /*------------------------------*/
   /* Global Variable Declarations */
   /*------------------------------*/
