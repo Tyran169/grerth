@@ -1,5 +1,4 @@
-'use cache';
-
+import { connection } from 'next/server';
 import { Suspense } from 'react';
 
 export async function SiteFooter() {
@@ -13,9 +12,16 @@ export async function SiteFooter() {
       </div>
       <div className="text-center text-sm font-bold opacity-80 p-2.5 ">
         <Suspense>
-          © {new Date().getFullYear()} YourCompany. All rights reserved.
+          <FooterText />
         </Suspense>
       </div>
     </footer>
+  );
+}
+
+export async function FooterText() {
+  await connection();
+  return (
+    <div>© {new Date().getFullYear()} YourCompany. All rights reserved.</div>
   );
 }

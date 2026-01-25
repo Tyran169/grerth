@@ -111,6 +111,8 @@ export const schema = z.object({
   reviewer: z.string()
 });
 
+export type DataTableItem = z.infer<typeof schema>;
+
 // Create a separate component for the drag handle
 function DragHandle({ id }: { id: number }) {
   const { attributes, listeners } = useSortable({
@@ -334,9 +336,10 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
 export function DataTable({
   data: initialData
 }: {
-  data: z.infer<typeof schema>[];
+  data: Promise<DataTableItem[]>;
 }) {
-  const [data, setData] = React.useState(() => initialData);
+  const idata = React.use(initialData);
+  const [data, setData] = React.useState(() => idata);
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
