@@ -23,7 +23,7 @@ async function SidebarContent({ children }: { children: React.ReactNode }) {
     >
       <SiteTitleProvider>
         <AppSidebar variant="inset" />
-        <SidebarInset className="ml-0!">
+        <SidebarInset className="ml-0! overflow-clip">
           <SiteHeader />
           {children}
         </SidebarInset>
