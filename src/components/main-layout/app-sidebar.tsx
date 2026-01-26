@@ -10,6 +10,7 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuButton,
   SidebarMenuItem,
   useSidebar
 } from '@/components/ui/sidebar';
@@ -25,17 +26,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <div className="flex items-center gap-2">
-              <Image
-                src={Logo}
-                alt="Main Logo"
-                width={32}
-                height={32}
-                loading="eager"
-                fetchPriority="high"
-              />
-              <span className="text-base font-semibold">Grerth</span>
-            </div>
+            <SidebarMenuButton
+              asChild
+              className="data-[slot=sidebar-menu-button]:!p-0 hover:bg-inherit active:bg-inherit"
+            >
+              <div className="inline-flex items-center gap-2">
+                <Image
+                  src={Logo}
+                  alt="Main Logo"
+                  width={32}
+                  height={32}
+                  loading="eager"
+                  fetchPriority="high"
+                />
+                <span className="text-base font-semibold">Grerth</span>
+              </div>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>

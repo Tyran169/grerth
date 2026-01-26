@@ -10,7 +10,7 @@ import icon96x96 from '@/assets/images/icon-96x96.png';
 import appleIcon from '@/assets/images/apple-icon.png';
 import ogImage from '@/assets/images/og-image.png';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001';
 
 export const metadata: Metadata = {
   title: 'Grerth',
