@@ -13,6 +13,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={fontVariables}>
+      <head>
+        {process.env.NODE_ENV === 'development' && (
+          <script
+            async
+            crossOrigin="anonymous"
+            src="https://tweakcn.com/live-preview.min.js"
+          />
+        )}
+      </head>
       <body className="antialiased">
         <ThemeProvider
           attribute="class"
