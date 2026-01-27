@@ -32,9 +32,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
         }}
         style={
           {
-            '--normal-bg': 'var(--popover)',
-            '--normal-text': 'var(--popover-foreground)',
-            '--normal-border': 'var(--border)',
+            // '--normal-bg': 'var(--popover)',
+            // '--normal-text': 'var(--popover-foreground)',
+            // '--normal-border': 'var(--border)',
             '--border-radius': 'var(--radius)'
           } as React.CSSProperties
         }
@@ -56,7 +56,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
           }
         }}
         visibleToasts={6}
-        duration={Infinity}
+        duration={5000}
         {...props}
       />
     </>
