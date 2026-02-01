@@ -12,16 +12,26 @@ import {
 import { useTheme } from 'next-themes';
 import { Toaster as Sonner, useSonner, type ToasterProps } from 'sonner';
 
+const RESTYLE_ELEMENT_ID = 'restyled-sonner-toast';
+
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = 'system' } = useTheme();
 
+  useEffect(() => {
+    if (document.getElementById(RESTYLE_ELEMENT_ID)) return;
+
+    const style = document.createElement('style');
+    style.id = RESTYLE_ELEMENT_ID;
+    style.type = 'text/css';
+    style.textContent = RESTYLE_CSS_RULES;
+    document.head.appendChild(style);
+  }, []);
+
   return (
     <>
-      <RestyleToast />
       <EnsureDefaultIcon />
       <Sonner
         theme={theme as ToasterProps['theme']}
-        containerAriaLabel={ARIA_LABEL}
         className="toaster group"
         icons={{
           success: <CircleCheckIcon className="size-4" />,
@@ -79,9 +89,13 @@ function EnsureDefaultIcon() {
   const { toasts } = useSonner();
 
   useEffect(() => {
-    // Sonner toasts are mutable; this effect is idempotent.
-    // Ensures a default icon for toasts without type/icon/jsx (undefined)
-    // and if type of each toast outside of types that Sonner provides icons for (info, success, warning, error, loading).
+    // Intentionally mutates Sonner toast objects.
+    // Relies on current Sonner behavior: toast objects are mutable and reused across renders.
+    // This effect is idempotent.
+    //
+    // Ensures a default icon for toasts that:
+    // - have no explicit icon or jsx
+    // - and either have no type, or use a type not supported by Sonner’s built-in icons
     toasts.forEach((toast) => {
       if (
         toast.type !== undefined &&
@@ -98,42 +112,8 @@ function EnsureDefaultIcon() {
   return null;
 }
 
-function RestyleToast() {
-  useEffect(() => {
-    //avoid duplicate injection (StrictMode / Fast Refresh)
-    if (document.getElementById(RESTYLE_ELEMENT_ID)) return;
-
-    const style = document.createElement('style');
-    style.id = RESTYLE_ELEMENT_ID;
-    style.type = 'text/css';
-    style.textContent = RESTYLE_CSS_RULES;
-    document.head.appendChild(style);
-
-    // optional: cleanup on unmount
-    return () => {
-      // Global Sonner styles are injected once and shared
-      // across all Sonner containers in the app.
-      // Only remove styles if no Sonner containers remain.
-      const containers = document.querySelectorAll(
-        `[aria-label*="${ARIA_LABEL}"]`
-      );
-      if (containers.length > 0) return;
-
-      document.getElementById(RESTYLE_ELEMENT_ID)?.remove();
-    };
-  }, []);
-
-  return null;
-}
-
-const ARIA_LABEL = 'Toast Notifications';
-
-const RESTYLE_ELEMENT_ID = 'restyled-sonner-toast';
-
 const RESTYLE_CSS_RULES = `
-  /*------------------------------*/
-  /* Global Variable Declarations */
-  /*------------------------------*/
+  /* ----- Global Variable Declarations ----- */
 
   .toaster,
   .toaster[data-sonner-theme='light'],
@@ -212,25 +192,19 @@ const RESTYLE_CSS_RULES = `
     --toast-border: var(--error-border);
   }
 
-  /*----------------------*/
-  /* Restyle Sonner Toast */
-  /*----------------------*/
+  /* ----- Restyle Sonner Toast ----- */
 
   .toaster .toast {
     border: 1px solid var(--toast-border) !important;
   }
 
-  /*---------------------------*/
-  /* Restyle Sonner Toast Icon */
-  /*---------------------------*/
+  /* ----- Restyle Sonner Toast Icon ----- */
 
   .toaster .toast .icon {
     color: var(--toast-text) !important;
   }
 
-  /*------------------------------*/
-  /* Restyle Sonner Toast Content */
-  /*------------------------------*/
+  /* ----- Restyle Sonner Toast Content ----- */
 
   .toaster .toast .title {
     color: inherit !important;
@@ -240,9 +214,7 @@ const RESTYLE_CSS_RULES = `
     color: inherit !important;
   }
 
-  /*------------------------------------*/
-  /* Restyle Sonner Toast Close Buttons */
-  /*------------------------------------*/
+  /* ----- Restyle Sonner Toast Close Buttons ----- */
 
   .toaster .toast .close-btn,
   .toaster .toast .close-btn:hover,
@@ -252,9 +224,7 @@ const RESTYLE_CSS_RULES = `
     color: inherit !important;
   }
 
-  /*-------------------------------------*/
-  /* Restyle Sonner Toast Cancel Buttons */
-  /*-------------------------------------*/
+  /* ----- Restyle Sonner Toast Cancel Buttons ----- */
 
   .toaster .toast .cancel-btn,
   .toaster .toast .cancel-btn:hover,
@@ -264,9 +234,7 @@ const RESTYLE_CSS_RULES = `
     border: 1px solid var(--toast-text) !important;
   }
 
-  /*-------------------------------------*/
-  /* Restyle Sonner Toast Action Buttons */
-  /*-------------------------------------*/
+  /* ----- Restyle Sonner Toast Action Buttons ----- */
 
   .toaster .toast .action-btn,
   .toaster .toast .action-btn:hover,
@@ -276,9 +244,7 @@ const RESTYLE_CSS_RULES = `
     border: 1px solid var(--toast-text) !important;
   }
 
-  /*----------------------------------------------*/
-  /* Align Sonner Toast Action and Cancel Buttons */
-  /*----------------------------------------------*/
+  /* ----- Align Sonner Toast Action and Cancel Buttons ----- */
 
   .toaster .toast .cancel-btn,
   .toaster .toast .action-btn {
